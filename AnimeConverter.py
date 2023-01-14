@@ -65,12 +65,12 @@ class AnimeConverter:
              'HQ31X02e').encode()
         ).hexdigest()
 
-    def to_anime(self, img: str, qqmode: str = 'world', proxy: typing.Union[str, None] = None) -> typing.Union[
+    def to_anime(self, img: str, qqmode: str = 'global', proxy: typing.Union[str, None] = None) -> typing.Union[
         None, Image.Image, dict]:
         """Convert image to anime style
 
         :param img: image url or base64 or local path
-        :param qqmode: qqmode, default is world | china
+        :param qqmode: qqmode, default is global | china
         :param proxy: proxy url, must be a string or None, like 'https://' or 'socks5://' default is None
         :return:
             - Image.Image if conversion is successful
@@ -79,8 +79,8 @@ class AnimeConverter:
         :raises FileNotFoundError: if image path is not found
         :raises requests.exceptions.RequestException: if the request failed
         """
-        if qqmode.lower() not in ['world', 'china']:
-            return {'code': -1, 'error': 'QQ Mode not Found, use WORLD or CHINA only'}
+        if qqmode.lower() not in ['global', 'china']:
+            return {'code': -1, 'error': 'QQ Mode not Found, use GLOBAL or CHINA only'}
 
         if proxy and (proxy.startswith('https://') or proxy.startswith('socks5://')):
             pass
@@ -133,12 +133,12 @@ class AnimeConverter:
         box = (img.width // 2 + 10, 30, img.width - 30, img.height - 205)
         return img.crop(box)
 
-    async def async_to_anime(self, img: str, qqmode: str = 'world', proxy: typing.Union[str, None] = None) -> typing.Union[
+    async def async_to_anime(self, img: str, qqmode: str = 'global', proxy: typing.Union[str, None] = None) -> typing.Union[
     None, Image.Image, dict]:
         """Convert image to anime style
 
         :param img: image url or base64 or local path
-        :param qqmode: qqmode, default is world | china
+        :param qqmode: qqmode, default is global | china
         :param proxy: proxy url, must be a string or None, like 'https://' or 'socks5://' default is None
         :return:
             - Image.Image if conversion is successful
@@ -147,8 +147,8 @@ class AnimeConverter:
         :raises FileNotFoundError: if image path is not found
         :raises requests.exceptions.RequestException: if the request failed
         """
-        if qqmode.lower() not in ['world', 'china']:
-            return {'code': -1, 'error': 'QQ Mode not Found, use WORLD or CHINA only'}
+        if qqmode.lower() not in ['global', 'china']:
+            return {'code': -1, 'error': 'QQ Mode not Found, use GLOBAL or CHINA only'}
 
         if proxy and (proxy.startswith('https://') or proxy.startswith('socks5://')):
             pass
@@ -185,7 +185,7 @@ class AnimeConverter:
                     'x-sign-version': 'v1',
                 }, proxy=proxy) as response:
                     if response.status != 200:
-                        raise ValueError("Failed to convert image: " + response.text())
+                        raise ValueError("Failed to convert image: " + await response.text())
                     data = json.loads(await response.text())
         except requests.exceptions.RequestException as e:
             raise e

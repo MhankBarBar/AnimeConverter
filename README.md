@@ -30,17 +30,13 @@ img.save("path/to/converted_image.jpg")
 
 ## Result
 
-### Before
-[![Ureha-cos-nahida.jpg](https://i.postimg.cc/RhdSdKcS/Ureha-cos-nahida.jpg)](https://postimg.cc/V0SPLSGp) 
-### After
-[![After](https://i.postimg.cc/xjpTXyT5/Ureha-cos-nahida-converted.jpg)](https://postimg.cc/z3W1MhhH)
-
+[Before](https://i.postimg.cc/RhdSdKcS/Ureha-cos-nahida.jpg) | [After](https://i.postimg.cc/xjpTXyT5/Ureha-cos-nahida-converted.jpg)
 ## Parameters
 
 The `to_anime` method takes three optional parameters:
 
 * **img** (required): image url or base64 or local path
-* **qqmode** (optional, default: 'world'): qqmode, must be 'world' or 'china'
+* **qqmode** (optional, default: 'world'): qqmode, must be 'global' or 'china'
 * **proxy** (optional, default: None): proxy url, must be a string or None, like 'https://' or 'socks5://'
 
 ## Exceptions
