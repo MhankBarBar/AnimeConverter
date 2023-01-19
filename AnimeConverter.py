@@ -33,7 +33,7 @@ class AnimeConverter:
         :return: base64 encoded image
         """
         if ';base64,' in url or self.is_base64(url):
-            return url
+            return url.split(';base64,')[1] if ';base64,' in url else url
         else:
             if 'http' in url:
                 image = base64.b64encode(requests.get(url).content).decode()
