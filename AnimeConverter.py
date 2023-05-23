@@ -15,7 +15,7 @@ class AnimeConverter:
 
     def __init__(self):
         self.user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36'
-        self.url = 'https://ai.tu.qq.com/trpc.shadow_cv.ai_processor_cgi.AIProcessorCgi/Process'
+        self.url = 'https://ai.tu.qq.com/overseas/trpc.shadow_cv.ai_processor_cgi.AIProcessorCgi/Process'
 
     def is_base64(self, string: str) -> bool:
         """Check if the given string is a base64 encoded image
@@ -65,12 +65,11 @@ class AnimeConverter:
              'HQ31X02e').encode()
         ).hexdigest()
 
-    def to_anime(self, img: str, qqmode: str = 'global', proxy: typing.Union[str, None] = None) -> typing.Union[
+    def to_anime(self, img: str, proxy: typing.Union[str, None] = None) -> typing.Union[
         None, Image.Image, dict]:
         """Convert image to anime style
 
         :param img: image url or base64 or local path
-        :param qqmode: qqmode, default is global | china
         :param proxy: proxy url, must be a string or None, like 'https://' or 'socks5://' default is None
         :return:
             - Image.Image if conversion is successful
@@ -79,9 +78,6 @@ class AnimeConverter:
         :raises FileNotFoundError: if image path is not found
         :raises requests.exceptions.RequestException: if the request failed
         """
-        if qqmode.lower() not in ['global', 'china']:
-            return {'code': -1, 'error': 'QQ Mode not Found, use GLOBAL or CHINA only'}
-
         if proxy and (proxy.startswith('https://') or proxy.startswith('socks5://')):
             pass
         elif proxy is None:
@@ -93,7 +89,7 @@ class AnimeConverter:
         if not img_data:
             raise FileNotFoundError("Image not found")
         obj = {
-            'busiId': 'ai_painting_anime_entry' if qqmode.lower() == 'china' else 'different_dimension_me_img_entry',
+            'busiId': 'different_dimension_me_img_entry',
             'extra': json.dumps({
                 'face_rects': [],
                 'version': 2,
@@ -133,7 +129,7 @@ class AnimeConverter:
         box = (img.width // 2 + 10, 30, img.width - 30, img.height - 205)
         return img.crop(box)
 
-    async def async_to_anime(self, img: str, qqmode: str = 'global', proxy: typing.Union[str, None] = None) -> typing.Union[
+    async def async_to_anime(self, img: str, proxy: typing.Union[str, None] = None) -> typing.Union[
     None, Image.Image, dict]:
         """Convert image to anime style
 
@@ -147,9 +143,6 @@ class AnimeConverter:
         :raises FileNotFoundError: if image path is not found
         :raises requests.exceptions.RequestException: if the request failed
         """
-        if qqmode.lower() not in ['global', 'china']:
-            return {'code': -1, 'error': 'QQ Mode not Found, use GLOBAL or CHINA only'}
-
         if proxy and (proxy.startswith('https://') or proxy.startswith('socks5://')):
             pass
         elif proxy is None:
@@ -161,7 +154,7 @@ class AnimeConverter:
         if not img_data:
             raise FileNotFoundError("Image not found")
         obj = {
-            'busiId': 'ai_painting_anime_entry' if qqmode.lower() == 'china' else 'different_dimension_me_img_entry',
+            'busiId': 'different_dimension_me_img_entry',
             'extra': json.dumps({
                 'face_rects': [],
                 'version': 2,
@@ -200,3 +193,9 @@ class AnimeConverter:
                 img = Image.open(BytesIO(await resp.read()))
                 box = (img.width // 2 + 10, 30, img.width - 30, img.height - 205)
                 return img.crop(box)
+
+
+if __name__ == '__main__':
+    cvt = AnimeConverter()
+    img = cvt.to_anime("C:/Users/mengb/OneDrive/Pictures/Ureha_cos-nahida.jpg")
+    img.show()

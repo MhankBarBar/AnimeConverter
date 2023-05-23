@@ -36,14 +36,13 @@ img.save("path/to/converted_image.jpg")
 The `to_anime` method takes three optional parameters:
 
 * **img** (required): image url or base64 or local path
-* **qqmode** (optional, default: 'global'): qqmode, must be 'global' or 'china'
 * **proxy** (optional, default: None): proxy url, must be a string or None, like 'https://' or 'socks5://'
 
 ## Exceptions
 
 * **ValueError**: if proxy is not a string or None, like 'https://' or 'socks5://'
 * **FileNotFoundError**: if image path is not found
-* **requests**.exceptions.RequestException: if the request failed
+* **requests.exceptions.RequestException**: if the request failed
 
 ## Notes
 
