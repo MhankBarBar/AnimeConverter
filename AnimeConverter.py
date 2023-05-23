@@ -193,9 +193,3 @@ class AnimeConverter:
                 img = Image.open(BytesIO(await resp.read()))
                 box = (img.width // 2 + 10, 30, img.width - 30, img.height - 205)
                 return img.crop(box)
-
-
-if __name__ == '__main__':
-    cvt = AnimeConverter()
-    img = cvt.to_anime("C:/Users/mengb/OneDrive/Pictures/Ureha_cos-nahida.jpg")
-    img.show()
