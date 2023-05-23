@@ -33,7 +33,7 @@ img.save("path/to/converted_image.jpg")
 [Before](https://i.postimg.cc/RhdSdKcS/Ureha-cos-nahida.jpg) | [After](https://i.postimg.cc/xjpTXyT5/Ureha-cos-nahida-converted.jpg)
 ## Parameters
 
-The `to_anime` method takes three optional parameters:
+The `to_anime` method takes two optional parameters:
 
 * **img** (required): image url or base64 or local path
 * **proxy** (optional, default: None): proxy url, must be a string or None, like 'https://' or 'socks5://'
